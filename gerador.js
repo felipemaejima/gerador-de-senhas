@@ -8,7 +8,7 @@ class passwordGenerator {
     this.upperCaseCharsLength = params[3] || 0;
     //Definindo quais caracteres serão aceitos para a senha
     this.chars = "abcdefghijklmnopqrstuvwxyz";
-    this.nums = "123456789";
+    this.nums = "1234567890";
     this.specialChars = "!@#$%&*";
     //Separando as strings com os caracteres em arrays
     this.arrChars = this.chars.split("");
