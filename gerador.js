@@ -3,6 +3,7 @@
 // 1 deles deve ser uma caracter especial
 // 3 devem ser numeros
 // 6 letras, onde duas delas serão maíusculas
+// é possível alterar estes requisitos
 class passwordGenerator {
   constructor() {
     //Definindo quais caracteres serão aceitos para a senha
