@@ -1,11 +1,11 @@
-// Este gerador gera senhas a partir dos seguintes requisitos:
-// 10 caracteres
-// 1 deles deve ser uma caracter especial
-// 3 devem ser numeros
-// 6 letras, onde duas delas serão maíusculas
-// é possível alterar estes requisitos
 class passwordGenerator {
-  constructor() {
+  // recebe os parâmetros para construção da senha (total de caractéres, quantidade de números, quantidade de caractéres especiais, quantidade de letras maiúsculas)
+  // o restante será completado com letras minusculas
+  constructor(...params) {
+    this.length = params[0];
+    this.numsLength = params[1] || 0;
+    this.specialCharsLength = params[2] || 0;
+    this.upperCaseCharsLength = params[3] || 0;
     //Definindo quais caracteres serão aceitos para a senha
     this.chars = "abcdefghijklmnopqrstuvwxyz";
     this.nums = "123456789";
@@ -18,21 +18,29 @@ class passwordGenerator {
     this.password = "";
   }
   getSpecialChar() {
-    let iSpecialChars = Math.floor(Math.random() * this.arrSpecialChars.length);
-    return (this.password += this.arrSpecialChars[iSpecialChars]);
+    for (let i = 1; i <= this.specialCharsLength; i++) {
+      let iSpecialChars = Math.floor(
+        Math.random() * this.arrSpecialChars.length
+      );
+      this.password += this.arrSpecialChars[iSpecialChars];
+    }
+    return this.password;
   }
   getNums() {
-    for (let i = 0; i <= 2; i++) {
+    for (let i = 1; i <= this.numsLength; i++) {
       let iNums = Math.floor(Math.random() * this.arrNums.length);
       this.password += this.arrNums[iNums];
     }
     return this.password;
   }
   getChars() {
-    for (let i = 0; i <= 5; i++) {
+    let CharsLength = this.length - this.numsLength - this.specialCharsLength;
+    for (let i = 1; i <= CharsLength; i++) {
       let iChars = Math.floor(Math.random() * this.arrChars.length);
       let char =
-        i < 2 ? this.arrChars[iChars].toUpperCase() : this.arrChars[iChars];
+        i <= this.upperCaseCharsLength
+          ? this.arrChars[iChars].toUpperCase()
+          : this.arrChars[iChars];
       this.password += char;
     }
     return this.password;
@@ -54,7 +62,7 @@ class passwordGenerator {
   }
 }
 // Trecho de código para mostrar a senha em index.html
-let pw = new passwordGenerator();
+let pw = new passwordGenerator(15, 4, 2, 3);
 document.getElementById("btn").addEventListener("click", () => {
   document.getElementById("pw").innerHTML = pw.getPassword();
 });
